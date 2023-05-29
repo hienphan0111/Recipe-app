@@ -82,5 +82,21 @@ test:
 production:
   <<: *default
   database: Recipe_app_production
-  username: Recipe_app
+  username: postgresql
+  password: <%= ENV["RECIPE_APP_DATABASE_PASSWORD"] %>
+
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: recipe-app
+  pool: 5
+  username: <%= ENV["RECIPE_APP_DATABASE_USERNAME"] %>
+  password: <%= ENV["RECIPE_APP_DATABASE_PASSWORD"] %>
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: myapp_test
+  pool: 5
+  username: <%= ENV["RECIPE_APP_DATABASE_USERNAME"] %>
   password: <%= ENV["RECIPE_APP_DATABASE_PASSWORD"] %>
