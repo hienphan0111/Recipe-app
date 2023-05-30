@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   root 'foods#show'
 
   resources :foods, only: [:index, :show, :create, :destroy]
+  resources :inventories, only: [:index, :show, :create, :destroy]
 end
