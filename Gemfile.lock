@@ -68,6 +68,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
+    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -87,10 +88,12 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    devise (4.9.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
     erubi (1.12.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -129,9 +132,9 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.2-x64-mingw-ucrt)
+    nokogiri (1.15.2-arm64-darwin)
       racc (~> 1.4)
-    pg (1.5.3-x64-mingw-ucrt)
+    orm_adapter (0.5.0)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -170,6 +173,9 @@ GEM
     regexp_parser (2.8.0)
     reline (0.3.4)
       io-console (~> 0.5)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.2.5)
     rubyzip (2.3.2)
     selenium-webdriver (4.9.1)
@@ -183,9 +189,8 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.6.3-arm64-darwin)
     stimulus-rails (1.2.1)
-      railties (>= 6.0.0)
-    tailwindcss-rails (2.0.29-x64-mingw-ucrt)
       railties (>= 6.0.0)
     thor (1.2.2)
     timeout (0.3.2)
@@ -195,8 +200,8 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
-      tzinfo (>= 1.0.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -215,22 +220,21 @@ GEM
     zeitwerk (2.6.8)
 
 PLATFORMS
-  x64-mingw-ucrt
+  arm64-darwin-20
 
 DEPENDENCIES
   bootsnap
   capybara
   debug
-  dotenv-rails
+  devise
   importmap-rails
   jbuilder
-  pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.5)
   selenium-webdriver
   sprockets-rails
+  sqlite3 (~> 1.4)
   stimulus-rails
-  tailwindcss-rails (~> 2.0)
   turbo-rails
   tzinfo-data
   web-console
