@@ -1,0 +1,23 @@
+<%= form_with model: @food, url: foods_path(current_user), ,method: :post local: true do |form| %>
+  <li>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </li>
+
+  <li>
+    <%= form.label :meaurement_unit %> :
+    <%= form.select :meaurement_unit, ['kg', 'g', 'l', 'ml', 'unit'] %>
+  </li>
+
+  <li>
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </li>
+
+  <li class="form_actions">
+    <%= form.submit "Add food", class="submit_button" %>  
+  </li>
+<% end %>
+
+  <h1> Foods#index </h1>
+  <p> Find me in app/views/foods/index.html.erb </p>
