@@ -16,4 +16,3 @@ Rails.application.routes.draw do
     root 'recipes#public_recipes', as: :unauthenticated_root
   end
 
-end

@@ -1,0 +1,16 @@
+<div>
+  <% @inventories.each do |inv| %>
+    <div>
+      <div>
+        <h3>
+          <%= inv.name %>
+        </h3>
+        <% if can? :destroy, inv %>
+          <%= button_to 'REMOVE', inventory_path(inv), method: :delete, data: { confirm: 'Are you sure!' }%>
+        <% end %>
+      </div>
+      <div>
+        <%= inv.description %>
+      </div>
+    </div>
+</div>
