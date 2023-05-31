@@ -1,23 +1,44 @@
-<%= form_with model: @food, url: foods_path(current_user), ,method: :post local: true do |form| %>
-  <li>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </li>
+<div class="show_header">
+  <h1>Logged in as: <%=current_user.name></h1>
+  <%= link_to "Log out", destroy_user_session_path, method: :delete data: { confirm: 'Do you want to log out?' }%>
+</div>
 
-  <li>
-    <%= form.label :meaurement_unit %> :
-    <%= form.select :meaurement_unit, ['kg', 'g', 'l', 'ml', 'unit'] %>
-  </li>
-
-  <li>
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
-  </li>
-
-  <li class="form_actions">
-    <%= form.submit "Add food", class="submit_button" %>  
-  </li>
-<% end %>
-
-  <h1> Foods#index </h1>
-  <p> Find me in app/views/foods/index.html.erb </p>
+<div class="show_header">
+  <%= link_to({ controller: "foods", action: "index" }) do %>
+    <% button_to "Add food" %>
+  <% end %>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Meaurement unit</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Expiration date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.meaurement_unit %></td>
+          <td><%= food.quantity %></td>
+          <td><%= food.price %></td>
+          <td><%= food.expiration_date %></td>
+          <td>
+            <%= link_to({ controller: "foods", action: "show", id: food.id }) do %>
+              <% button_to "Show" %>
+            <% end %>
+            <%= link_to({ controller: "foods", action: "edit", id: food.id }) do %>
+              <% button_to "Edit" %>
+            <% end %>
+            <%= link_to({ controller: "foods", action: "destroy", id: food.id }) do %>
+              <% button_to "Delete" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
