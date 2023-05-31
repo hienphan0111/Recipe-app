@@ -1,0 +1,23 @@
+<div>
+  <h1>
+    Inventory <%= @inventory.id %>
+  </h1>
+  <%= button_to 'Add food', foods_path(), method: :create %>
+  <hr />
+  <table>
+    <thead>
+      <td>Food</td>
+      <td>Quantity</td>
+      <td>Action</td>
+    </thead>
+    <% @inventory_foods.each do |inv_food| %>
+      <tr>
+        <td><%= inv_food.name %></td>
+        <td><%= inv_food.quantity %></td>
+        <td>
+          <% if can? :destroy, inv_food %>
+          <%= button_to 'Remove', inventory_food_path(inv_food), method: :delete, data: { confirm: 'Are you sure?'} %>
+        </td>
+      </tr>
+  </table>
+</div>
