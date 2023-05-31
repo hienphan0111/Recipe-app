@@ -1,0 +1,22 @@
+<div>
+  <h1>Shopping List<h1>
+  <div>
+    <p>Amount of food to buy <%= @shop_foods.length %>
+    <p>Recipe: <%= @recipe.name %>
+    <p>Total value of food needed: <%= @total %>
+    <p>Inventory: <%= @inventory.name %>
+  </div>
+    <table>
+      <th>
+        <td>Food</td>
+        <td>Quantity</td>
+        <td>Value</td>
+      </th>
+      <% @shop_foods.each do |food| %>
+        <tr>
+          <td><%= food.name %>
+          <td><%= food.quantity %>
+          <td><%= food.value %>
+        </tr>
+    </table>
+</div>
