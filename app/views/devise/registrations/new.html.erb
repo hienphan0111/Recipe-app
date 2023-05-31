@@ -1,0 +1,39 @@
+<div class="bg-slate-300/50 h-screen flex flex-col items-center pt-5">
+  <div class="flex flex-col items-center bg-sky-900 p-3 rounded text-white shadow-2xl">
+    <h2>Sign up</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="flex flex-col gap-1 w-fit">
+        <div class="field flex flex-col">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true %>
+        </div>
+
+        <div class="field flex flex-col">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="field flex flex-col">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+        </div>
+
+        <div class="field flex flex-col">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+
+        <div class="actions border bg-orange-600 text-white px-4 py-1 m-auto">
+          <%= f.submit "Sign up" %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
