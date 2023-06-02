@@ -2,11 +2,11 @@ class RecipesController < ApplicationController
   before_action :find_recipe, only: %i[show remove_food]
 
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.includes(:recipe_foods).all
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.includes(:recipe_foods).find(params[:id])
     @inventories = current_user.inventories
   end
 
@@ -25,7 +25,7 @@ class RecipesController < ApplicationController
   end
 
   def public_recipes
-    @recipes = Recipe.where(is_public: true).order(created_at: :desc)
+    @recipes = Recipe.includes(:recipe_foods).where(is_public: true).order(created_at: :desc)
   end
 
   def remove_food
@@ -45,7 +45,7 @@ class RecipesController < ApplicationController
   end
 
   def shopping_list
-    @recipe = Recipe.find(params[:recipe_id])
+    @recipe = Recipe.includes(:recipe_fodds).find(params[:recipe_id])
     @foods = @recipe.recipe_foods
     @inv_selected = Inventory.find(params[:inventory_id])
     inv_foods = @inv_selected.inventory_foods
@@ -73,6 +73,6 @@ class RecipesController < ApplicationController
   end
 
   def find_recipe
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.includes(:recipe_foods).find(params[:id])
   end
 end
