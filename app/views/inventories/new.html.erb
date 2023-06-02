@@ -1,0 +1,22 @@
+<div class="container d-flex justify-content-center">
+  <div class="shadow-lg p-4">
+    <%= form_with model: Inventory.new, url: inventories_path(@inventory) do |form| %>
+      <% if form.object.errors.any? %>
+        <div class="alert alert-danger">
+          <% form.object.errors.full_messages.each do |message| %>
+              <div><%= message.inspect %></div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="mb-3">
+        <h3>Add inventory</h3>
+      <div class="mb-3">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, required:true, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= form.submit 'Add Inventory', class: "btn btn-primary bg-gradient"%>
+      </div>
+    <% end %>
+  </div>
+</div>

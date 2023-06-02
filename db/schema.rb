@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_142221) do
 
   create_table "foods", force: :cascade do |t|
     t.string "name"
-    t.integer "measurement_unit"
+    t.string "measurement_unit"
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,28 +26,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_142221) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "users_id"
-    t.index ["users_id"], name: "index_inventories_on_users_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
   end
 
   create_table "inventory_foods", force: :cascade do |t|
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "inventories_id"
-    t.bigint "foods_id"
-    t.index ["foods_id"], name: "index_inventory_foods_on_foods_id"
-    t.index ["inventories_id"], name: "index_inventory_foods_on_inventories_id"
+    t.bigint "inventory_id"
+    t.bigint "food_id"
+    t.index ["food_id"], name: "index_inventory_foods_on_food_id"
+    t.index ["inventory_id"], name: "index_inventory_foods_on_inventory_id"
   end
 
   create_table "recipe_foods", force: :cascade do |t|
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "recipes_id"
-    t.bigint "foods_id"
-    t.index ["foods_id"], name: "index_recipe_foods_on_foods_id"
-    t.index ["recipes_id"], name: "index_recipe_foods_on_recipes_id"
+    t.bigint "recipe_id"
+    t.bigint "food_id"
+    t.index ["food_id"], name: "index_recipe_foods_on_food_id"
+    t.index ["recipe_id"], name: "index_recipe_foods_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -58,8 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_142221) do
     t.boolean "is_public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "users_id"
-    t.index ["users_id"], name: "index_recipes_on_users_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -79,10 +79,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_142221) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "inventories", "users", column: "users_id"
-  add_foreign_key "inventory_foods", "foods", column: "foods_id"
-  add_foreign_key "inventory_foods", "inventories", column: "inventories_id"
-  add_foreign_key "recipe_foods", "foods", column: "foods_id"
-  add_foreign_key "recipe_foods", "recipes", column: "recipes_id"
-  add_foreign_key "recipes", "users", column: "users_id"
+  add_foreign_key "inventories", "users"
+  add_foreign_key "inventory_foods", "foods"
+  add_foreign_key "inventory_foods", "inventories"
+  add_foreign_key "recipe_foods", "foods"
+  add_foreign_key "recipe_foods", "recipes"
+  add_foreign_key "recipes", "users"
 end

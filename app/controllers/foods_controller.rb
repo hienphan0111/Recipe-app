@@ -1,18 +1,15 @@
 class FoodsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :all_foods
 
   def index
-    @foods = current_user.foods
+    @foods = Food.all
   end
 
-  def show; end
-
   def create
-    @food = current_user.foods.new(food_params)
-    puts foods.inspect
-    if @food.save
+    food = Food.new(food_params)
+    if food.save
       flash[:success] = 'Food created!'
-      redirect_to foods_path @food
+      redirect_to foods_path
     else
       flash[:alert] = 'Food not created!'
       render :index
@@ -22,17 +19,20 @@ class FoodsController < ApplicationController
   def destroy
     @food = Food.find(params[:id])
     if @food.destroy
-      flash[:success] = 'Food deleted!'
-      redirect_to foods_path
+      flash[:notice] = 'Food deleted!'
     else
       flash[:alert] = 'Food not deleted!'
-      render :index
     end
+    redirect_to foods_path
   end
 
   private
 
   def food_params
-    params.require(:food).permit(:name, :meaurement_unit, :quantity, :price, :expiration_date, :user_id)
+    params.require(:food).permit(:name, :measurement_unit, :price)
+  end
+
+  def all_foods
+    @foods = Food.all
   end
 end

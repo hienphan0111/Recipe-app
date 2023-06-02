@@ -1,11 +1,11 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log In", new_session_path(resource_name), class: 'bg-sky-500 text-white' %>
+  <%= link_to "Log In", new_session_path(resource_name), class: 'btn btn-secondary' %>
   <br />
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <p>Don't have account</p>
-  <%= link_to "Sign up", new_registration_path(resource_name), class: 'spacing-6 px-4 py-1 bg-amber-500 border rounded cursor-pointer hover:bg-amber-300 text-white' %><br />
+  <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-secondary' %><br />
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>

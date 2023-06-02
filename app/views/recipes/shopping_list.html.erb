@@ -1,22 +1,35 @@
-<div>
-  <h1>Shopping List<h1>
-  <div>
-    <p>Amount of food to buy <%= @shop_foods.length %>
-    <p>Recipe: <%= @recipe.name %>
-    <p>Total value of food needed: <%= @total %>
-    <p>Inventory: <%= @inventory.name %>
+<div class="recipe-container">
+  <div class="d-flex flex-column align-items-center w-75 mx-auto gap-5 mb-5">
+    <h3>Shoppong list</h3> 
+    <div>
+      <div>
+        <p>Amount of food to buy: <%= @miss_foods.length %></p>
+        <p>Total value of food needed: <%= @miss_foods.reduce(0) { |total, f| total + f.food.price * f.quantity } %>
+      </div>
+      <div>
+        <p>Recipe: <%= @recipe.name %> </p>
+        <p>Inventory: <%= @inv_selected.name %> </p>
+      </div>
+    <div>
   </div>
-    <table>
-      <th>
-        <td>Food</td>
-        <td>Quantity</td>
-        <td>Value</td>
-      </th>
-      <% @shop_foods.each do |food| %>
+
+  <hr class="my-5">
+  <div class="col-md-8 mx-auto">
+    <table class="table table-bordered table-striped">
+      <thead class="table-light">
         <tr>
-          <td><%= food.name %>
-          <td><%= food.quantity %>
-          <td><%= food.value %>
+          <th>Food</th>
+          <th>Quantity</th>
+          <th>Price</th>
         </tr>
+      </thead>
+      <%@miss_foods.each do |food|%>
+        <tr>
+          <td><%= food.food.name %></td>
+          <td><%= "#{food.quantity} #{food.food.measurement_unit}"%></td>
+          <td><%= number_to_currency(food.food.price) %></td>
+        </tr>
+      <%end%>
     </table>
+  </div>
 </div>

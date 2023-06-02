@@ -1,0 +1,22 @@
+<div class="col-md-8 mx-auto">
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <% @inv.inventory_foods.each do |inv_food| %>
+      <tr>
+        <td><%= inv_food.food.name %></td>
+        <td><%= "#{inv_food.quantity} #{inv_food.food.measurement_unit}"%></td>
+        <td>
+          <% if can? :destroy, inv_food %>
+            <%= button_to 'Remove', inventory_inventory_food_path(@inv, inv_food), method: :delete, data: { confirm: 'Are you sure?'} %>
+          <% end %>
+        </td>
+      </tr>
+    <%end%>
+  </table>
+</div>
