@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   # Define abilities for the user here. For example:
   #
