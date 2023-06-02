@@ -1,12 +1,16 @@
-<h1 class="food_title">Public Recipes</h1>
-    <% @recipes.each do |recipe|  %>
-<div class="public_recipes">
-            <ul class='recipe_name'>
-                <li><%= recipe.name %></li>
-                <li>by: <%= recipe.users.name %></li>
-            </ul>
-            <ul class="recipe_total">
-                <li><%= recipe.description.truncate(30) %></li>
-            </ul>
+<div class="container mx-auto">
+  <div class="d-flex flex-column align-items-center">
+  <h1 class="mb-5">Public Recipes</h1>
+  <% @recipes.each do |recipe|  %>
+    <div class="public_recipes">
+      <ul class='recipe_name'>
+        <li><%= recipe.name %></li>
+        <li>by: <%= recipe.user.name %></li>
+      </ul>
+      <ul class="recipe_total flex flex-col items-center">
+        <li><%= recipe.description.truncate(30) %></li>
+      </ul>
+    </div>
+  <% end %>
+  </div>
 </div>
-    <% end %>

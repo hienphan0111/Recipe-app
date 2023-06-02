@@ -1,11 +1,42 @@
 <div class="recipe-container">
-  <div class="food-title">Recipe <%= @recipe.id%> </div>
-  <%= render @recipe%>
+  <div class="d-flex flex-column align-items-center w-75 mx-auto gap-5 mb-5">
+    <h3><%= @recipe.name %></h3> 
+    <%= render @recipe%>
   </div>
-  <div class="recipe-link">
-      <%= link_to 'Generate shopping list', recipe_path(@recipe.id) %>
+  <div class="d-flex justify-content-center">
+    <div class="recipe-link d-flex justify-content-between">
 
-      <%= link_to 'Add ingredient', new_recipe_recipe_food_path(@recipe.id)%>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Generate shopping list
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_with url: recipe_shopping_list_path(@recipe), method: :get do |f| %>
+                <div class="mb-3">
+                  <%= f.label :Inventory, "Select an inventory to use", class: 'form-label' %>
+                  <%= f.collection_select :inventory_id, @inventories, :id, :name , class: "form-select mb-3" %>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <%= f.submit 'Generate', class: "btn btn-primary" %>
+            </div>
+              <% end %>
+          </div>
+        </div>
+      </div>
+
+        <%= link_to 'Add food', new_recipe_recipe_food_path(@recipe) %>
+    </div>
   </div>
   <hr class="my-5">
   <div class="col-md-8 mx-auto">
@@ -24,9 +55,9 @@
       <td><%= "#{recipe_food.quantity} #{recipe_food.food.measurement_unit}"%></td>
       <td><%=number_to_currency(recipe_food.food.price * recipe_food.quantity) %></td>
       <td>
-        <button class="btn btn-sm btn-outline-info bg-gradient">
-          Modify
-        </button>
+        <% if can? :destroy, @recipe %>
+          <%= button_to 'Remove', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you user'}, class: 'btn btn-danger' %>
+        <% end %>
       </td>
     </tr>
   <%end%>

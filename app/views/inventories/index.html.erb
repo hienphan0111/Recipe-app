@@ -1,16 +1,26 @@
-<div>
-  <% @inventories.each do |inv| %>
-    <div>
-      <div>
-        <h3>
-          <%= inv.name %>
-        </h3>
-        <% if can? :destroy, inv %>
-          <%= button_to 'REMOVE', inventory_path(inv), method: :delete, data: { confirm: 'Are you sure!' }%>
-        <% end %>
-      </div>
-      <div>
-        <%= inv.description %>
-      </div>
+<div class="container">
+  <% if user_signed_in? %>
+    <div class="d-flex justify-content-between">
+      <h3>Inventories</h3>
+      <%= button_to 'Add inventory', new_inventory_path, method: :get, class: 'btn btn-primary' %>
     </div>
+    <% @inventories.each do |inv| %>
+      <div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= link_to inv.name, inventory_path(inv) %></td>
+              <td><%= button_to 'REMOVE', inventory_path(inv), method: :delete, data: { confirm: 'Are you sure' }, class: 'btn btn-outline-danger' %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
 </div>

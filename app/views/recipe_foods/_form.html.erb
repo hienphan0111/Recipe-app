@@ -1,4 +1,4 @@
-<%= form_with model: RecipeFood.new, url: recipe_recipe_foods_path(@recipe.id) do |form| %>
+<%= form_with model: RecipeFood.new, url: recipe_recipe_foods_path(@recipe) do |form| %>
   <% if form.object.errors.any? %>
     <div class="alert alert-danger">
         <% form.object.errors.full_messages.each do |message| %>
@@ -7,14 +7,14 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.label :Ingedients %>
-    <%= form.collection_select :foods_id, @current_user.foods , :id, :name, {prompt: "Select Ingedient"}, {class: "form-select"} %>
+    <%= form.label :Add_food, class: 'form-label' %>
+    <%= form.collection_select :food_id, Food.all , :id, :name, {prompt: "Select Ingedient"}, {class: "form-select mb-3"} %>
   </div>
   <div class="mb-3">
-    <%= form.label :quantity %>
+    <%= form.label :quantity, class: 'form-label' %>
     <%= form.number_field :quantity, step: :any, required:true, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= form.submit 'Add ingredient', class: "btn btn-primary bg-gradient"%>
+    <%= form.submit 'Add food', class: "btn btn-primary bg-gradient"%>
   </div>
 <%end%>
