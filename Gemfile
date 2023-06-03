@@ -79,3 +79,17 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # Devise authentication gem [https://github.com/heartcombo/devise]
 gem "devise"
+
+gem 'rubocop', '>= 1.0', '< 2.0'
+
+group :development, :test do
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', '~> 5.0'
+end
+
+gem "cssbundling-rails", "~> 1.1"
+
+gem 'factory_bot_rails'
+
+gem 'rswag'
