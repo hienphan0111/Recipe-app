@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="d-flex flex-column align-items-center p-10">
+    <h1 class="mb-5">Inventories</h1>
+    <div class="d-flex justify-content-end w-100 mb-3">
+      <% if user_signed_in? %>
+        <%= button_to 'Add inventory', new_inventory_path, method: :get, class: 'btn btn-outline-primary' %>
+      <% end %>
+    </div>
+    <hr class="w-100"/>
+    <% @inventories.each do |inv| %>
+      <div class="row w-100 border">
+        <div class="col-4 border p-3">
+          <h3 class="p-2">
+            <%= link_to inv.name, inventory_path(inv) %>
+          </h3>
+          <% if user_signed_in? && current_user == inv.user %>
+            <%= button_to "REMOVE", inventory_path(inv), method: :delete, class: 'btn btn-outline-danger', data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </div>
+        <div class="col p-3">
+          <%= inv.description %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

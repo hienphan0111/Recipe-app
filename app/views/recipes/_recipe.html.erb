@@ -1,0 +1,27 @@
+  <div class="d-flex justify-content-around w-100">
+    <div class="details">
+      <p>
+        <strong>Name:</strong>
+        <%=@recipe.name%>
+      </p>
+      <p>
+        <strong>Preparation time:</strong>
+        <%= @recipe.preparation_time%> hrs
+      </p>
+      <p>
+        <strong>Cooking time:</strong>
+        <%= @recipe.cooking_time%> hrs
+      </p>
+      <p>
+         <strong>Follow these steps:</strong>
+      </p>
+    </div>
+    <% if user_signed_in? && current_user == @recipe.user %>
+      <div class="form-check form-switch">
+        <%= form_with model: @recipe, url: recipe_path(@recipe), method: :put do |form| %>
+          <%= form.label :public, class: 'form-check-label' %>
+          <%= form.check_box :is_public, checked: @recipe.is_public, onchange: 'this.form.submit();', class: 'form-check-input'  %>
+        <% end %>
+      </div>
+    <% end %>
+</div>

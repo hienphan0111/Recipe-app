@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="d-flex flex-column align-items-center">
+    <h1 class="mb-5">Recipes</h1>
+    <div class="d-flex justify-content-end w-100 mb-3">
+      <% if user_signed_in? %>
+        <%= button_to 'Add recipe', new_recipe_path, method: :get, class: 'btn btn-outline-primary' %>
+      <% end %>
+    </div>
+    <hr class="w-100" />
+    <% @recipes.each_with_index do |recipe,index| %>
+      <div class="row w-50 border">
+        <div class="col-4 border p-3">
+          <h3 class="p-3">
+            <%= link_to recipe.name, recipe_path(recipe) %>
+          </h3>
+          <% if user_signed_in? && current_user == recipe.user %>
+            <%= button_to "REMOVE", recipe_path(recipe), method: :delete, class: 'btn btn-outline-danger m-3', data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </div>
+        <div class="col p-3">
+          <%= recipe.description %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h3>
+      Inventory <%= @inventory.name %>
+    </h3>
+    <%= button_to 'Add food', new_inventory_inventory_food_path(@inventory), method: :get %>
+  </div>
+  <hr />
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td>Food</td>
+        <td>Quantity</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <% @inventory.inventory_foods.each do |inv_food| %>
+      <tr>
+        <td><%= inv_food.food.name %></td>
+        <td><%= inv_food.quantity %></td>
+        <td>
+          <% if can? :destroy, inv_food %>
+            <%= button_to 'Remove', inventory_inventory_food_path(@inventory, inv_food), method: :delete, data: { confirm: 'Are you sure?'} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
