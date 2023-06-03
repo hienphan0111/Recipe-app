@@ -7,10 +7,10 @@ class InventoriesController < ApplicationController
 
   def show
     @inventory = Inventory.find(params[:id])
-    if @inventory.user != current_user || !@inventory
-      flash[:notice] = 'You are not owner of this inventory or inventory not found'
-      redirect_to inventories_path
-    end
+    return unless @inventory.user != current_user || !@inventory
+
+    flash[:notice] = 'You are not owner of this inventory or inventory not found'
+    redirect_to inventories_path
   end
 
   def new; end
