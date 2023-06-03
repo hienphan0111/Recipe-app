@@ -1,13 +1,23 @@
 class RecipesController < ApplicationController
-  before_action :find_recipe, only: %i[show remove_food]
+  before_action :authenticate_user!, except: %i[public_recipes index show]
 
   def index
-    @recipes = Recipe.includes(:recipe_foods).all
+    if user_signed_in?
+      @recipes = Recipe.includes(:recipe_foods).where(user: current_user)
+    else
+      public_recipes
+    end
   end
 
   def show
     @recipe = Recipe.includes(:recipe_foods).find(params[:id])
-    @inventories = current_user.inventories
+    if user_signed_in? || @recipe.is_public
+      @inventories = current_user.inventories if @recipe.user == current_user
+      render 'show'
+    else
+      flash[:notice] = 'The recipe is private, you need login to see it'
+      redirect_to recipes_path
+    end
   end
 
   def new; end
@@ -29,7 +39,7 @@ class RecipesController < ApplicationController
   end
 
   def remove_food
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.includes(:recipe_foods).find(params[:id])
     @recipe.recipe_foods.delete(params[:recipe_food])
     if @recipe.save
       redirect_to recipe_path
@@ -45,7 +55,7 @@ class RecipesController < ApplicationController
   end
 
   def shopping_list
-    @recipe = Recipe.includes(:recipe_fodds).find(params[:recipe_id])
+    @recipe = Recipe.includes(:recipe_foods).find(params[:recipe_id])
     @foods = @recipe.recipe_foods
     @inv_selected = Inventory.find(params[:inventory_id])
     inv_foods = @inv_selected.inventory_foods
@@ -60,6 +70,16 @@ class RecipesController < ApplicationController
       end
     end
     render 'shopping_list'
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    if user_signed_in? && @recipe.user == current_user
+      @recipe.destroy
+    else
+      flash[:alert] = 'You are not allowed to delete this recipe'
+    end
+    redirect_to recipes_path
   end
 
   private

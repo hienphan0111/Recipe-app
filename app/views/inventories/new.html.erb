@@ -15,6 +15,10 @@
         <%= form.text_field :name, required:true, class: "form-control" %>
       </div>
       <div class="mb-3">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_area :description, required:true, class: "form-control" %>
+      </div>
+      <div class="mb-3">
         <%= form.submit 'Add Inventory', class: "btn btn-primary bg-gradient"%>
       </div>
     <% end %>

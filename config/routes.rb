@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :inventory_foods, only: [:new, :create, :destroy]
   end
 
-  resources :recipes, only: [:index, :show, :new, :create] do
+  resources :recipes, only: [:index, :show, :new, :create, :destroy] do
     resources :recipe_foods, only: [:new, :create, :destroy]
     get '/shopping_list', to: 'recipes#shopping_list'
     put '/', to: 'recipes#toggle_public'

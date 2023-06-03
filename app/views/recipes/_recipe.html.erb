@@ -16,10 +16,12 @@
          <strong>Follow these steps:</strong>
       </p>
     </div>
-    <div class="form-check form-switch">
-      <%= form_with model: @recipe, url: recipe_path(@recipe), method: :put do |form| %>
-        <%= form.label :public, class: 'form-check-label' %>
-        <%= form.check_box :is_public, checked: @recipe.is_public, onchange: 'this.form.submit();', class: 'form-check-input'  %>
-      <% end %>
-    </div>
+    <% if user_signed_in? && current_user == @recipe.user %>
+      <div class="form-check form-switch">
+        <%= form_with model: @recipe, url: recipe_path(@recipe), method: :put do |form| %>
+          <%= form.label :public, class: 'form-check-label' %>
+          <%= form.check_box :is_public, checked: @recipe.is_public, onchange: 'this.form.submit();', class: 'form-check-input'  %>
+        <% end %>
+      </div>
+    <% end %>
 </div>

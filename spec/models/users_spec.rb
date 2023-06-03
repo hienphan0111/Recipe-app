@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { User.new(name: 'User1', email: 'user1@gmail.com', password: "123456") }
+  subject { User.new(name: 'User1', email: 'user@gmail.com', password: "123456") }
 
   let(:recipe) { Recipe.create(name: "First",preparation_time: 2, cooking_time: 1, description: "This is the first recipe", is_public: true) }
   let(:inventory) { Inventory.create()}
